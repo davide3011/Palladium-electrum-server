@@ -1,0 +1,40 @@
+services:
+  electrumx:
+    image: electrumx-plm:local
+    container_name: electrumx-plm
+    restart: unless-stopped
+
+    network_mode: host
+
+    environment:
+      COIN: "Palladium"
+      NET: "mainnet"
+
+      DAEMON_URL: "http://<rpcuser>:<rpcpassword>@<rpchost>:<rpcport>" # edit this line with your RPC credentials
+
+      SERVICES: "tcp://0.0.0.0:50001,ssl://0.0.0.0:50002"
+
+      SSL_CERTFILE: "/certs/server.crt"
+      SSL_KEYFILE: "/certs/server.key"
+
+      DB_DIRECTORY: "/data"
+      PEER_DISCOVERY: "off"
+      PEER_ANNOUNCE: "false"
+      INITIAL_CONCURRENT: "2"
+      COST_SOFT_LIMIT: "0"
+      COST_HARD_LIMIT: "0"
+
+    ulimits:
+      nofile:
+        soft: 1048576
+        hard: 1048576
+
+    volumes:
+      - ./data:/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl --silent --fail --user davide:password -H 'content-type: text/plain' --data-binary '{\"jsonrpc\":\"1.0\",\"id\":\"x\",\"method\":\"getblockchaininfo\",\"params\":[]}' http://127.0.0.1:2332/ >/dev/null || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 6
+      start_period: 20s
