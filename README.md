@@ -78,13 +78,13 @@ Replace with your actual values:
 3. Start the containers with Docker Compose:
 
    ```bash
-   docker-compose up -d
+   docker compose up -d
    ```
 
 4. Check the logs to verify that ElectrumX started correctly:
 
    ```bash
-   docker-compose logs -f
+   docker compose logs -f
    ```
 ---
 
