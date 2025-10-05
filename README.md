@@ -31,6 +31,8 @@ Tested on:
 * Python 3.10+ (to use `test-server.py`)
 * A running **Palladium** full node ([NotRin7/Palladium](https://github.com/NotRin7/Palladium))
 
+**System Architecture**: This server requires a **64-bit system** (both AMD64 and ARM64 architectures are supported, but 32-bit systems are not compatible).
+
 **Recommendation**: to ensure maximum stability and reduce communication latency, it is strongly recommended to run the Palladium node **on the same machine** that hosts the ElectrumX container.
 
 ---
