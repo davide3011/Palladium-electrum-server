@@ -8,7 +8,7 @@ Tested on:
 * ✅ Debian 12
 * ✅ Ubuntu 24.04
 
-🔗 Palladium Full Node: [NotRin7/Palladium](https://github.com/NotRin7/Palladium)
+🔗 Palladium Full Node: [davide3011/palladiumcore](https://github.com/davide3011/palladiumcore)
 
 ---
 
@@ -53,15 +53,20 @@ In the `docker-compose.yml` file, you can set the RPC credentials of the Palladi
 
 ```yaml
 environment:
-  - DAEMON_URL=http://<rpcuser>:<rpcpassword>@<host>:<port>/
+  DAEMON_URL: "http://<rpcuser>:<rpcpassword>@host.docker.internal:<port>/"
 ```
 
 Replace with your actual values:
 
 * `<rpcuser>` → RPC username of the node
 * `<rpcpassword>` → RPC password of the node
-* `<host>` → node address (e.g., `127.0.0.1`)
 * `<port>` → RPC port of the node (e.g., `2332` for Palladium)
+
+**Note:** The compose uses `host.docker.internal` to connect to the Palladium node running on your host machine (outside the container). This works on both Windows/Mac and Linux thanks to the `extra_hosts` configuration.
+
+**Ports:** ElectrumX exposes:
+- `50001` → TCP (unencrypted)
+- `50002` → SSL (encrypted, recommended)
 
 **Important:** never include real credentials in files you upload to GitHub.
 
